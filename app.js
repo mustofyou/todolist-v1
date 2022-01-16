@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const date = require(__dirname+"/date.js")
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 var items = ["buy food"];
 let workItems = [];
