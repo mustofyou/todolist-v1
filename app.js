@@ -57,6 +57,20 @@ app.get("/about", function(req, res){
 });
 
 
+const toDoSchema = new mongoose.Schema({
+  name: String,
+  check: Number
+});
+
+const ToDo = new mongoose.model("todolist", toDoSchema);
+
+const toDo = new ToDo({
+  name: "buy food",
+  check: 0
+
+});
+
+toDo.save();
 
 
 
