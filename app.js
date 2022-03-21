@@ -9,10 +9,35 @@ const app = express();
 
 const port = process.env.PORT || 3000;
 
-mongoose.connect("mongodb://localhost:27017/fruitdb"); //to connect to the database
+mongoose.connect("mongodb://localhost:27017/todolistDB"); //to connect to the database
 
-var items = ["buy food"];
-let workItems = [];
+
+const itemSchema = {
+  name: String
+}
+
+const Item = mongoose.model("Item", itemSchema);
+
+const item1 = new Item({
+  name: "Welcome To your todolist !"
+});
+
+const item2 = new Item({
+  name: "hit the + button to add new item"
+});
+
+const defaultItems = [item1,item2];
+
+// Item.insertMany(defaultItems, function(err){
+//   if (err){
+//     console.log(err)
+//   } else{
+//     console.log("succesfully added the items to DB")
+//   }
+// })
+
+
+
 
 app.set("view engine", "ejs"); //must be applied and ejs files mus be in views folder
 
@@ -22,20 +47,38 @@ app.use(express.static("public")); // a directory called public must be created 
 
 app.get("/", function(req, res) {
 
+  Item.find({},function(err, foundItems){
+    if(foundItems.length === 0){
+          Item.insertMany(defaultItems, function(err){
+            if (err){
+              console.log(err)
+            } else{
+              console.log("succesfully added the default items to DB")
+            }
+          })
+    }else{
+      res.render("list", {listTitle: day,newListItem: foundItems}); //if you dont provide all the variables on the ejs file here, the app will crash
+    }
+
+  });
+
   let day = date.getDate();
 
-  res.render("list", {listTitle: day,newListItem: items}); //if you dont provide all the variables on the ejs file here, the app will crash
+  
 
 });
 
+
+
 app.post("/", function(req, res){
-  let item = req.body.newItem;
+
+  
 
   if (req.body.list === "Work List"){
     workItems.push(item);
     res.redirect("/work");
   } else {
-    items.push(item)
+    new Item ({name: req.body.newItem}).save() //to add new document to the collection
     res.redirect("/");  //res.redirect directs the client to the specified page
   };
 
@@ -44,6 +87,14 @@ app.post("/", function(req, res){
 
 
 
+
+
+});
+
+
+app.post("/delete", async function(req,res){
+  const deletion = await Item.deleteOne({ _id: req.body.checkbox });
+  res.redirect("/")
 
 });
 
@@ -57,20 +108,6 @@ app.get("/about", function(req, res){
 });
 
 
-const toDoSchema = new mongoose.Schema({
-  name: String,
-  check: Number
-});
-
-const ToDo = new mongoose.model("todolist", toDoSchema);
-
-const toDo = new ToDo({
-  name: "buy food",
-  check: 0
-
-});
-
-toDo.save();
 
 
 
