@@ -58,14 +58,14 @@ node app.js / nodemon app.js
 ```
 
 ✅ Skills Demonstrated
-Building a RESTful CRUD application
-Integrating MongoDB with Mongoose
-Creating and using custom modules (e.g., date.js)
-Dynamic UI rendering with EJS
-Middleware usage (body-parser, static files)
-Clean routing with Express
+*Building a RESTful CRUD application
+*Integrating MongoDB with Mongoose
+*Creating and using custom modules (e.g., date.js)
+*Dynamic UI rendering with EJS
+*Middleware usage (body-parser, static files)
+*Clean routing with Express
 📌 Notes
-If the database is empty on first run, default items will be automatically inserted.
-You can extend this project by adding user authentication, multiple lists, or even a React frontend.
+*If the database is empty on first run, default items will be automatically inserted.
+*You can extend this project by adding user authentication, multiple lists, or even a React frontend
 
 Feel free to contribute or fork the project!
