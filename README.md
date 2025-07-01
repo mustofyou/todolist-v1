@@ -25,13 +25,21 @@ This is a simple and clean to-do list web application built with **Node.js**, **
 
 ## 📁 Project Structure
 📦project-root
+
 ┣ 📂views
+
 ┃ ┣ 📜list.ejs
+
 ┃ ┗ 📜about.ejs
+
 ┣ 📂public
+
 ┃ ┣ 📂css / images / js (static assets)
+
 ┣ 📜app.js
+
 ┣ 📜date.js
+
 ┗ 📜package.json
 
 
